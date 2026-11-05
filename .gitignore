@@ -1,0 +1,14 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Rust build cache & generated JNI binaries (compiled automatically by Gradle preBuild)
+klir_core/target/
+app/src/main/jniLibs/
