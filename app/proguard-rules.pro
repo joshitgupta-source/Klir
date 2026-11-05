@@ -1,23 +1,21 @@
-# Keep classes and methods annotated with @Keep
--keep,allowobfuscation @interface androidx.annotation.Keep
--keep @androidx.annotation.Keep class * {*;}
--keepclasseswithmembers class * {
-    @androidx.annotation.Keep <methods>;
-}
-
-# Explicitly preserve Klir's Rust JNI bridge in StorageCleanerEngine
--keepclasseswithmembernames,includedescriptorclasses class com.joshit.klir.StorageCleanerEngine {
+# Preserve native JNI engine and native method symbols
+-keep class com.joshit.klir.StorageCleanerEngine { *; }
+-keepclasseswithmembernames class * {
     native <methods>;
 }
 
-# Preserve data models used across UI state
--keep class com.joshit.klir.JunkType { *; }
--keep class com.joshit.klir.JunkItem { *; }
--keep class com.joshit.klir.DiskNode { *; }
--keep class com.joshit.klir.TrashItem { *; }
+# Preserve WorkManager Worker reflection constructor
+-keep class com.joshit.klir.KlirMaintenanceWorker {
+    public <init>(...);
+}
 
-# Preserve WorkManager CoroutineWorker and Quick Settings TileService in release builds
--keep class com.joshit.klir.KlirMaintenanceWorker { *; }
--keep class com.joshit.klir.KlirQuickTileService { *; }
+# Fix startup crash: preserve WorkDatabase_Impl constructor without broad rules
+-keep class androidx.work.impl.*Database_Impl {
+    <init>();
+}
 
+# Preserve Klir data models
 -keep class com.joshit.klir.StorageVolumeInfo { *; }
+-keep class com.joshit.klir.JunkItem { *; }
+-keep class com.joshit.klir.TrashItem { *; }
+-keep class com.joshit.klir.DiskNode { *; }
